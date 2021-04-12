@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./msg.proto
+option go_package = "voice/resource/pb/room";
+
+message Msg{
+  string id = 1;          //消息id
+  uint64 dst_uid = 2;     //接收方uid
+  uint64 from_uid = 3;    //发送方uid
+  uint32 direction = 4;   //0表示正向1表示反向
+  string msg_content = 5; //消息内容
+  uint32 time_stamp = 6; //更新时间
+}
+
+message LinkUsers{
+  uint64 dst_uid = 1;     //接收方uid
+  uint64 from_uid = 2;    //发送方uid
+  uint32 direction = 3;  //0表示正向1表示反向
+  uint32 time_stamp = 4; //更新时间
+  int32 count = 5;        //未读条数
+}

@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./common.proto
+option go_package = "voice/pb";
+
+message IdsArgs {
+  repeated int32 id = 1;  //
+}
+
+message CountResp {
+  int64  Count = 1;
+}
+
+message Response {
+  int32 Id = 2;
+  string StrId = 3;
+  bool  Success = 1;
+}
+
+message FormValue{
+  map<string, string> form = 1;
+}
+
+
+

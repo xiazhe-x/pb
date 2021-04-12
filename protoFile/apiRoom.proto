@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./apiRoom.proto
+option go_package = "github.com/xiazhe-x/pb/roomMgt";
+
+message ConnParams{
+  string token = 1; //token
+  uint32 room_id = 2;
+  uint32 user_id = 3;
+}
+
+message RoomUser{
+    uint32 uid = 1;
+    string nickname = 2;
+    string avatar_url = 3;
+}
+
+message ReqMikeMsg{
+  uint32 mike_id = 1;  // 麦克id
+  uint32 genre = 2;   //操作类型  1上麦 2下麦 3随机上麦
+}

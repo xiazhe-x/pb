@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 //protoc --go_out=plugins=grpc:C:\Go\project\src ./common.proto
-option go_package = "voice/pb";
+option go_package = "github.com/xiazhe-x/pb";
 
 message IdsArgs {
   repeated int32 id = 1;  //
@@ -17,9 +17,22 @@ message Response {
   bool  Success = 1;
 }
 
-message FormValue{
-  map<string, string> form = 1;
+message UserInfo{
+  string Id = 1;                  // 用户主键id
+  string DisplayId = 2;           // 外显id
+  int32 DisplayIdLevel = 3;       // 靓号等级 默认为0 1,2,3 普通 精英 顶级
+  string HeadIconImageUrl = 4;    // 头像
+  string Nickname = 5;            // 昵称
+  string RichExp = 6;             // 当前财富经验值
+  string CharmExp = 7;            // 魅力经验值
+  int32 PeerageLv = 8;        // 爵位等级
+  int64 PeerageEndTime = 9;   // 爵位到期时间
+  int32 Head = 10;      // 头像框
+  int32 JoinRoom= 11;  //  加入房间装饰
+  int32 Ride = 12;     // 坐骑装饰
+  int32 Chat = 13;     // 聊天气泡装饰
+  uint32 MikeNum = 14;
+  bool IsManager = 15;
+  uint32 RoomId = 16;
 }
-
-
 

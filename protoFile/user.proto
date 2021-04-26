@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+option go_package = "github.com/xiazhe-x/pb/user";
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./user.proto
+
+// 抢气球用户结构请求 方法名 BalloonGameUserinfo
+message BalloonGameUserinfoReq{
+  string Id = 1;
+}
+
+// 抢气球用户结构返回
+message BalloonGameUserinfoResp{
+  string  HeadIconImageUrl = 1;   // 头像url
+  string Nickname = 2;            // 昵称
+  string Gold = 3;                // 可用金币
+}
+
+// 用户金币变化 方法名 UserGoldEdit
+message UserGoldEditReq{
+  string Id = 1;  // 用户id
+  int32 Genre = 2;    // 类型 1 加金币 2 减金币
+  string Gold = 3;    // 金币数
+  string Type = 4;    // 日志类型
+}
+
+// 用户金币变化返回
+message UserGoldEditResp{
+  int32 Code = 1;     // 是否成功 0 成功  -1 可用金币不足  其他待定
+  string Gold = 2;    // 当前剩余金币数
+}
+
+// 获取用户头像[社区详情]请求  方法名 GetUserNicknameHeadimgUrl
+message GetUserNicknameHeadimgUrlReq {
+  string Id = 1;
+}
+
+// 获取用户头像[社区详情]返回
+message GetUserNicknameHeadimgUrlResp{
+  string HeadIconImageUrl = 1;    // 头像地址
+  int32 HeadIconAvatar = 2;   // 头像框装饰
+  string Nickname = 3;    // 昵称
+  string Exp = 4;     // 等级经验
+  string CharmExp = 5;    // 魅力经验值
+  string RichExp = 6; // 财富经验
+  int32 PeerageLv = 7;    // 爵位等级
+  int32 Sex = 8;      // 性别
+  int64 Birthday = 9; // 生日
+}
+
+// 获取用户社区关系请求 方法名 CommunityUserList
+message CommunityUserListReq{
+  string MyId = 1;
+
+}
+
+// 获取用户社区关系返回
+message CommunityUserListResp {
+  map<string, CommunityUserinfo> Data = 1;
+}
+
+// 用户社区关系
+message CommunityUserinfo{
+  int32 Type = 1; // 1 互关 或 粉丝 2 陌生人 3 黑名单
+  string HeadIconImageUrl = 2;    // 头像地址
+  int32 HeadIconAvatar = 3;   // 头像框装饰
+  string Nickname = 4;    // 昵称
+  string Exp = 5;     // 等级经验
+  string CharmExp = 6;    // 魅力经验值
+  string RichExp = 7; // 财富经验
+  int32 PeerageLv = 8;    // 爵位等级
+  int32 Sex = 9;      // 性别
+  int64 Birthday = 10; // 生日
+}
+// 获取我的关注请求
+message GetMyFollowsReq{
+  string Id = 1;  // 我的id
+}
+
+// 获取我的关注返回
+message GetMyFollowsResp{
+  repeated string UserId = 1; // 我的关注用户列表
+}
+
+// 获取用户信息请求 方法名 GetUserinfo
+message GetUserinfoReq {
+  repeated string Ids = 1;    // 请求id 数组形式传递 获取一个和获取多人都用这个请求
+}
+
+// 获取用户信息返回
+message GetUserinfoResp{
+  repeated Userinfo Data = 1; // 返回数据 数组形式返回 1个就返回一个
+}
+/*用户信息*/
+message Userinfo{
+  string Id = 1;                  // 用户主键id
+  string DisplayId = 2;           // 外显id
+  int32 DisplayIdLevel = 3;       // 靓号等级 默认为0 1,2,3 普通 精英 顶级
+  string HeadIconImageUrl = 4;    // 头像
+  string Nickname = 5;            // 昵称
+  int32 Sex = 6;                  // 性别
+  int64 Birthday = 7;             // 生日
+  int32 FansCount = 8;            // 粉丝数量
+  int32 FollowCount = 9;          // 关注数量
+  int32 StarCount = 10;           // 被点赞数量
+  BagInfo Bag = 11;                   // 背包信息
+  string City = 12;               // 城市
+}
+
+
+message BagInfo{
+  repeated ItemInfo Data = 1;      // 背包信息
+  string RichExp = 2;             // 当前财富经验值
+  string CharmExp = 3;            // 魅力经验值
+  int32 PeerageLv = 4;        // 爵位等级
+  int64 PeerageEndTime = 5;   // 爵位到期时间
+  EquipInfo Equip = 6;            // 装扮
+  string Gold = 7;            // 可用金币
+  string Earnings = 8;       // 可用余额
+  string LockedGold = 9;     // 锁定金币
+  string LockedEarnings = 10; // 锁定余额
+  string Exp = 11;            // 经验值
+}
+
+// 背包内道具
+message ItemInfo{
+  string Id = 1;  // 道具id
+  string Count = 2;   // 道具数量
+}
+
+// 装备 装扮
+message EquipInfo{
+  int32 Head = 1;      // 头像框
+  int32 JoinRoom= 2;  //  加入房间装饰
+  int32 Ride = 3;     // 坐骑装饰
+  int32 Chat = 4;     // 聊天气泡装饰
+}
+
+
+
+// 获取用户背包 方法名 GetUserBag
+message GetUserBagReq {
+  string Id = 1;              // 用户id
+}
+
+// 获取用户背包返回
+message GetUserBagResp{
+  BagInfo Bag = 1;
+}

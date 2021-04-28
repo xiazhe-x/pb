@@ -13,6 +13,8 @@ message BalloonGameUserinfoResp{
   string  HeadIconImageUrl = 1;   // 头像url
   string Nickname = 2;            // 昵称
   string Gold = 3;                // 可用金币
+  int32 Code = 4;                 // 0 正常 -1 错误
+  string ErrorMsg = 5;    // 错误信息
 }
 
 // 用户金币变化 方法名 UserGoldEdit
@@ -25,8 +27,9 @@ message UserGoldEditReq{
 
 // 用户金币变化返回
 message UserGoldEditResp{
-  int32 Code = 1;     // 是否成功 0 成功  -1 可用金币不足  其他待定
-  string Gold = 2;    // 当前剩余金币数
+  int32 Code = 1;  // 0 正常 -1  错误
+  string ErrorMsg = 2;    // 错误信息
+  string Gold = 3;    // 当前剩余金币数
 }
 
 // 获取用户头像[社区详情]请求  方法名 GetUserNicknameHeadimgUrl
@@ -45,6 +48,8 @@ message GetUserNicknameHeadimgUrlResp{
   int32 PeerageLv = 7;    // 爵位等级
   int32 Sex = 8;      // 性别
   int64 Birthday = 9; // 生日
+  int32 Code = 10;  // 0 正常 -1  错误
+  string ErrorMsg = 11;    // 错误信息
 }
 
 // 获取用户社区关系请求 方法名 CommunityUserList
@@ -56,11 +61,13 @@ message CommunityUserListReq{
 // 获取用户社区关系返回
 message CommunityUserListResp {
   map<string, CommunityUserinfo> Data = 1;
+  int32 Code = 2;  // 0 正常 -1  错误
+  string ErrorMsg = 3;    // 错误信息
 }
 
 // 用户社区关系
 message CommunityUserinfo{
-  int32 Type = 1; // 1 互关 或 粉丝 2 陌生人 3 黑名单
+  int32 Type = 1; // 1 互关 2 我关注他 3 他关注我 4 黑名单
   string HeadIconImageUrl = 2;    // 头像地址
   int32 HeadIconAvatar = 3;   // 头像框装饰
   string Nickname = 4;    // 昵称
@@ -71,7 +78,7 @@ message CommunityUserinfo{
   int32 Sex = 9;      // 性别
   int64 Birthday = 10; // 生日
 }
-// 获取我的关注请求
+// 获取我的关注请求 方法名 GetMyFollows
 message GetMyFollowsReq{
   string Id = 1;  // 我的id
 }
@@ -79,6 +86,8 @@ message GetMyFollowsReq{
 // 获取我的关注返回
 message GetMyFollowsResp{
   repeated string UserId = 1; // 我的关注用户列表
+  int32 Code = 2;  // 0 正常 -1  错误
+  string ErrorMsg = 3;    // 错误信息
 }
 
 // 获取用户信息请求 方法名 GetUserinfo

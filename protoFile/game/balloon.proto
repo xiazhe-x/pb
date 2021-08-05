@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./balloon.proto
+option go_package = "github.com/xiazhe-x/pb/game";
+
+message GameConf{
+  int32 partake_num = 1;
+  int32 balloon_num = 2;
+  string balloon_explain = 3;
+  int32 balloon_rule = 4;
+  int64 now_round_num = 5;
+  int32 balloon_is_open = 6;
+}

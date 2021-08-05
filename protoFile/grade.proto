@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./grade.proto
+option go_package = "github.com/xiazhe-x/pb/data";
+import "common.proto";
+
+message GradeReq {
+  int32 id = 1;
+  int32 grade = 2;          // 等级
+}
+
+message Grade{
+  int32 id = 1;
+  int32 grade = 2;          // 等级
+  float experience = 3;     // 经验
+  string head_picture = 4;  // 头像框图片
+  string charm_picture = 5; // 魅力框
+  string wealth_picture = 6;// 财富框
+  string charm_badge = 7;   // 魅力徽章
+  string wealth_badge = 8;  // 财富徽章
+}
+
+message ListGradeResp {
+  repeated Grade data = 1;
+}
+
+service GradeSpider {
+  rpc ListGrade (GradeReq) returns (ListGradeResp);
+  rpc InfoGrade (GradeReq) returns (Grade);
+  rpc EditGrade (Grade) returns (common.Response);
+}

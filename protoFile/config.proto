@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./grade.proto
+option go_package = "github.com/xiazhe-x/pb/data";
+import "common.proto";
+
+message ConfigReq {
+  string key = 2;         //配置的key键名
+  string inc_type = 5;    //配置分组
+}
+
+message Config{
+  int32 id = 1;
+  string key = 2;         // 配置的key键名
+  string name = 3;        // 名称
+  string value = 4;       // 配置的val值
+  string inc_type = 5;    // 配置分组
+  string desc = 6;        // 描述
+}
+
+message ListConf {
+  repeated Config data = 1;
+}
+
+message ConfByMap{
+  map<string, string> data = 1;
+}
+
+service ConfigSpider {
+  rpc ConfList (ConfigReq) returns (ListConf);
+  rpc ConfMap (ConfigReq) returns (ConfByMap);
+  rpc InfoConf (ConfigReq) returns (Config);
+
+  rpc CreateConf (Config) returns (common.Response);
+  rpc UpdateConf (Config) returns (common.Response);
+}

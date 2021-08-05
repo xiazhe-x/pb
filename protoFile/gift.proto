@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+//protoc --go_out=plugins=grpc:C:\Go\project\src ./grade.proto
+option go_package = "github.com/xiazhe-x/pb/data";
+import "common.proto";
+
+message GiftReq {
+  int32 id = 1;
+  string inc_type = 5; //配置分组
+}
+
+message Gift{
+  int32 id = 1;
+  string name = 2;         // 名称
+  string picture = 3;        // 图片
+  int64 price = 4;       // 价格
+  string special = 5;    // 特效
+  int32 sort = 6;        // 排序
+  int32 sold = 7;         //下架1.否 2.是
+  int32 cardiac = 8;      //心动值
+}
+
+message GiftList{
+  int32 id = 1;
+  string name = 2;         // 名称
+  string picture = 3;        // 图片
+  int64 price = 4;       // 价格
+  string special = 5;    // 特效
+  int32 sort = 6;        // 排序
+
+  int32 cardiac = 8;      //心动值
+}
+
+message ListConf {
+  repeated Config data = 1;
+}
+
+message ConfByMap{
+  map<string, string> data = 1;
+}
+
+service ConfigSpider {
+  rpc ConfList (ConfigReq) returns (ListConf);
+  rpc ConfMap (ConfigReq) returns (ConfByMap);
+  rpc InfoConf (ConfigReq) returns (Config);
+
+  rpc CreateConf (Config) returns (common.Response);
+  rpc UpdateConf (Config) returns (common.Response);
+}
